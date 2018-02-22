@@ -1,0 +1,57 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>		
+	<title>Enter a title, displayed at the top of the window.</title>
+	</head>
+<!-- The information between the BODY and /BODY tags is displayed.-->
+<body>
+	<% include nav %>
+	<h1>Enter the main heading, usually the same as the title.</h1>
+	<div class="container">
+		<form method="POST" action="/contact" >
+			<div class="form-group">
+			  <label for="fName">First Name:</label>
+			  <input type="text" name="fName" class="form-control" id="fName" />
+			</div>
+			<div class="form-group">
+			  <label for="lName">Last Name:</label>
+			  <input type="text" name="lName" class="form-control" id="lName">
+			</div>
+			<div class="form-group">
+				<label for="age">Age</label>
+				<input type="number" name="age" class="form-control" id="age">
+			</div>
+			 <!-- <form method="POST" action="/file_upload" enctype="multipart/form-data">
+				<div class="form-group">
+					<input name="fileUp" id="fileUp" type="file" onchange="fileUpload(event)" />
+				</div>
+			</form> -->
+			<button type="submit" class="btn btn-default">Submit</button>							
+		</form>
+	</div>
+	<script>
+			function fileUpload(evt){
+				if(evt.currentTarget.files[0].size < 1000000){
+					console.log("Current target passed");
+					sendToApi(evt);
+				} 
+			}
+			function sendToApi(e){
+				var formData = new FormData(this);
+				debugger;
+				$.ajax({
+					url : '/file_upload',
+					method : 'POST',
+					data : formData,
+					success: function(data){
+						alert(data);
+					},
+					cache: false,
+					contentType: false,
+					processData: false
+				});
+			}
+	</script>
+</body>
+</html>
